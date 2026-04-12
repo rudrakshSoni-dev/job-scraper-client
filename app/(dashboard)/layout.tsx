@@ -41,7 +41,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Sidebar */}
       <aside className="hidden md:flex flex-col w-64 bg-white border-r border-gray-200">
         <div className="p-6 text-black font-bold text-xl flex items-center gap-2">
-          <FileSearch className="w-6 h-6" /> Resume AI
+          <FileSearch className="w-6 h-6" /> Resume Analyzer
         </div>
 
         <nav className="flex-1 px-4 space-y-2 mt-4">
