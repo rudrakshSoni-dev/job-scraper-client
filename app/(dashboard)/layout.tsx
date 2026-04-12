@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { Home, FileSearch, Briefcase, Menu, LogOut, Users } from 'lucide-react';
+import { Home, FileSearch, Briefcase, Menu, LogOut, Users, Link } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { getStoredUsers, removeActiveUser, switchToUser } from '../lib/cookies';
 import { StoredUser } from '../types';
@@ -131,11 +131,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {/* Footer */}
         <footer className="border-t border-gray-200 bg-white p-4 text-center text-sm text-gray-500">
           <div className="flex justify-center gap-4 mb-2">
-            <span className="cursor-pointer hover:text-black">GitHub</span>
-            <span className="cursor-pointer hover:text-black">Email</span>
-            <span className="cursor-pointer hover:text-black">LinkedIn</span>
+            <a className="cursor-pointer hover:text-black" href="https://github.com/rudrakshSoni-dev" target="_blank">GitHub</a>
+            <a className="cursor-pointer hover:text-black" href="mailto:hello@rudrakshh.live">Email</a>
+            <a className="cursor-pointer hover:text-black" href="https://www.linkedin.com/in/rudraksh-soni-7674ab2aa/" target="_blank">LinkedIn</a>
           </div>
-          <p>Made with ❤️ by Rudrakshh</p>
+          <p>Made with ❤️ by <a className="cursor-pointer hover:text-black" href="http://rudrakshh.live" target="_blank">Rudrakshh</a></p>
         </footer>
       </div>
     </div>

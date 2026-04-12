@@ -95,7 +95,7 @@ export default function AnalyzerPage() {
     if (uploading) return;
 
     try {
-      const res = await fetch('/mock-resume.pdf');
+      const res = await fetch('/resume.pdf');
       if (!res.ok) throw new Error("Mock resume not found");
 
       const blob = await res.blob();

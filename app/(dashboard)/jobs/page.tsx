@@ -42,7 +42,7 @@ export default function JobsPage() {
       
       <div className="flex gap-4 mb-8 bg-white p-4 rounded-lg shadow-sm border border-gray-100">
         <Input value={keywords} onChange={(e) => setKeywords(e.target.value)} placeholder="Skills, Keywords, Job Title..." className="flex-1" />
-        <Button onClick={handleSearch} className="bg-linkedin-primary hover:bg-linkedin-primary/90"><Search className="w-4 h-4 mr-2" /> Search</Button>
+        <Button onClick={handleSearch} className="bg-black hover:bg-black/90"><Search className="w-4 h-4 mr-2" /> Search</Button>
       </div>
 
       <div className="space-y-4">
@@ -64,7 +64,7 @@ export default function JobsPage() {
             <div key={job.id} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="flex justify-between items-start">
                 <div className="flex gap-4">
-                  <div className="w-12 h-12 bg-linkedin-bg text-linkedin-primary rounded-md flex items-center justify-center font-bold text-xl">
+                  <div className="w-12 h-12 bg-black text-white rounded-md flex items-center justify-center font-bold text-xl">
                     {job.company.display_name.charAt(0)}
                   </div>
                   <div>
@@ -83,7 +83,7 @@ export default function JobsPage() {
               </div>
               <p className="mt-4 text-sm text-gray-600 line-clamp-2">{job.description}</p>
               <div className="mt-4 flex justify-end">
-                <Button onClick={() => window.open(job.redirect_url, '_blank')} className="bg-white text-linkedin-primary border border-linkedin-primary hover:bg-linkedin-bg">
+                <Button onClick={() => window.open(job.redirect_url, '_blank')} className="bg-white text-black border border-black hover:bg-gray-100">
                   Apply Now <ExternalLink className="w-4 h-4 ml-2" />
                 </Button>
               </div>
