@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react';
+import { JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import {
@@ -27,7 +27,6 @@ export default function AnalyzerPage() {
 
   const router = useRouter();
 
-  // ================= UPLOAD =================
   const uploadFile = async (uploadedFile: File) => {
     if (uploading) return;
 
@@ -42,18 +41,14 @@ export default function AnalyzerPage() {
     try {
       const { data } = await api.post('/resume/upload', formData);
 
-      if (!data?.id) {
-        throw new Error("No ID returned from backend");
-      }
+      if (!data?.id) throw new Error("No ID returned");
 
       setResumeId(data.id);
       toast.success('Resume uploaded successfully');
     } catch (err: any) {
-      console.error("UPLOAD ERROR:", err);
-
+      console.error(err);
       setFile(null);
       setResumeId('');
-
       toast.error('Upload failed', {
         description:
           err?.response?.data?.message ||
@@ -65,48 +60,50 @@ export default function AnalyzerPage() {
     }
   };
 
-  // ================= DROP =================
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setDragActive(false);
 
     if (uploading) return;
 
-    const uploadedFile = e.dataTransfer.files?.[0];
-    if (!uploadedFile) return;
+    const f = e.dataTransfer.files?.[0];
+    if (!f) return;
 
-    if (uploadedFile.type !== 'application/pdf') {
+    if (f.type !== 'application/pdf') {
       toast.error('Only PDF allowed');
       return;
     }
 
-    uploadFile(uploadedFile);
+    uploadFile(f);
   };
 
-  // ================= FILE SELECT =================
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (uploading) return;
 
-    const uploadedFile = e.target.files?.[0];
-    if (!uploadedFile) return;
+    const f = e.target.files?.[0];
+    if (!f) return;
 
-    if (uploadedFile.type !== 'application/pdf') {
+    if (f.type !== 'application/pdf') {
       toast.error('Only PDF allowed');
       return;
     }
 
-    uploadFile(uploadedFile);
+    uploadFile(f);
   };
 
-  // ================= MOCK =================
   const handleMockResume = async () => {
     if (uploading) return;
 
     try {
-      const res = await fetch('/resume.pdf');
-      const blob = await res.blob();
+      const res = await fetch('/mock-resume.pdf');
+      if (!res.ok) throw new Error("Mock resume not found");
 
-      const mockFile = new File([blob], 'resume.pdf', {
+      const blob = await res.blob();
+      if (blob.type !== 'application/pdf') {
+        throw new Error("Invalid mock file");
+      }
+
+      const mockFile = new File([blob], 'mock-resume.pdf', {
         type: 'application/pdf',
       });
 
@@ -117,7 +114,6 @@ export default function AnalyzerPage() {
     }
   };
 
-  // ================= ANALYZE =================
   const handleAnalyze = async () => {
     if (!resumeId) {
       toast.error('Upload a resume first');
@@ -129,7 +125,6 @@ export default function AnalyzerPage() {
     try {
       const payload: any = {};
 
-      // ✅ Only send JD if valid
       if (jobDescription && jobDescription.trim().length >= 10) {
         payload.jobDescription = jobDescription.trim();
       }
@@ -167,6 +162,9 @@ export default function AnalyzerPage() {
     }
   };
 
+  const isJDValid =
+    !jobDescription || jobDescription.trim().length >= 10;
+
   const scores = results
     ? [
         { name: 'Keyword Match', score: results.keywordScore },
@@ -179,16 +177,12 @@ export default function AnalyzerPage() {
       ]
     : [];
 
-  const isJDValid =
-    !jobDescription || jobDescription.trim().length >= 10;
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-3xl mx-auto space-y-8"
     >
-      {/* DROPZONE */}
       <div
         onDragOver={(e) => {
           e.preventDefault();
@@ -257,7 +251,6 @@ export default function AnalyzerPage() {
         />
       </div>
 
-      {/* JD */}
       <div className="bg-white p-4 border rounded-xl">
         <div
           className="flex justify-between cursor-pointer"
@@ -277,7 +270,6 @@ export default function AnalyzerPage() {
         )}
       </div>
 
-      {/* ANALYZE */}
       <Button
         onClick={handleAnalyze}
         disabled={!resumeId || uploading || analyzing || !isJDValid}
@@ -290,18 +282,16 @@ export default function AnalyzerPage() {
           : 'Analyze Resume'}
       </Button>
 
-      {/* LOADING */}
       {analyzing && (
         <div className="flex justify-center">
           <Skeleton className="w-48 h-48 rounded-full" />
         </div>
       )}
 
-      {/* RESULTS */}
       {results && !analyzing && (
-        <div className="space-y-6">
-          <div className="bg-white p-6 border rounded-xl">
-            <h3>ATS Score</h3>
+        <div className="space-y-8">
+          <div className="bg-white p-6 border rounded-xl text-center">
+            <h3 className="text-lg font-medium">ATS Score</h3>
             <div className="text-4xl font-bold">
               {results.atsScore}
             </div>
@@ -312,10 +302,42 @@ export default function AnalyzerPage() {
               <div key={i} className="bg-white p-4 border rounded">
                 <div className="flex justify-between">
                   <span>{s.name}</span>
-                  <span>{s.score}</span>
+                  <span>{s.score ?? "N/A"}</span>
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="bg-white p-6 border rounded-xl">
+            <h3 className="font-semibold mb-3">Rewrite Tips</h3>
+            <ul className="list-disc ml-5 space-y-1">
+              {results.suggestions.rewriteTips.map((tip, i) => (
+                <li key={i}>{tip}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-white p-6 border rounded-xl">
+            <h3 className="font-semibold mb-3">Suggestions</h3>
+            <ul className="list-disc ml-5 space-y-1">
+              {results.suggestions.suggestions.map((s: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined, i: Key | null | undefined) => (
+                <li key={i}>{s}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="bg-white p-6 border rounded-xl">
+            <h3 className="font-semibold mb-3">Missing Keywords</h3>
+            <div className="flex flex-wrap gap-2">
+              {results.suggestions.missingKeywords.map((k, i) => (
+                <span
+                  key={i}
+                  className="px-3 py-1 border rounded text-sm"
+                >
+                  {k}
+                </span>
+              ))}
+            </div>
           </div>
 
           <Button
