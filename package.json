@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
@@ -38,5 +39,11 @@
     "eslint-config-next": "16.2.2",
     "tailwindcss": "^4",
     "typescript": "^5"
+=======
+  "dependencies": {
+    "@lucide/lab": "^0.1.2",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^1.7.0"
+>>>>>>> 6232fda (Removed Video Section and corrected API address)
   }
 }
