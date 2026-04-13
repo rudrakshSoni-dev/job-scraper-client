@@ -123,7 +123,7 @@ export default function JobScraperLanding() {
               </p>
 
               <form 
-                action="https://formspree.io/f/YOUR_FORM_ID" 
+                action="https://formspree.io/f/xwvaegzo" 
                 method="POST"
                 className="space-y-4"
               >
@@ -190,7 +190,7 @@ export default function JobScraperLanding() {
             A private, high-reliability extraction engine powered by premium residential proxy rotation. Access is strictly invite-only to ensure zero downtime and block-free scraping.
           </motion.p>
 
-          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button 
               onClick={() => setIsModalOpen(true)}
               className="w-full sm:w-auto px-8 py-4 bg-white text-black font-semibold rounded-full hover:scale-105 transition-transform flex items-center justify-center gap-2"
@@ -206,7 +206,7 @@ export default function JobScraperLanding() {
               View Source <GitBranch size={18} />
             </a>
           </motion.div>
-
+{/* 
           <motion.div variants={fadeInUp} className="w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl shadow-emerald-900/20 border border-neutral-800 bg-[#111] aspect-video relative group flex items-center justify-center">
              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-30" />
              <div className="relative z-10 flex flex-col items-center">
@@ -215,7 +215,7 @@ export default function JobScraperLanding() {
                 </div>
                 <p className="text-white font-medium">Watch API Walkthrough</p>
              </div>
-          </motion.div>
+          </motion.div> */}
         </motion.div>
       </section>
 
@@ -264,7 +264,7 @@ export default function JobScraperLanding() {
               <div className="mx-auto text-xs font-mono text-neutral-500">POST /api/v1/jobs/scrape</div>
             </div>
             <div className="p-6 font-mono text-sm sm:text-base overflow-x-auto">
-              <div className="text-emerald-400 mb-2">curl -X POST https://api.yourdomain.com/v1/jobs/scrape \</div>
+              <div className="text-emerald-400 mb-2">curl -X POST https:/api.rudrakshh.live/job-scraper/v1/jobs/scrape \</div>
               <div className="text-emerald-400 mb-2">  -H "Authorization: Bearer YOUR_API_KEY" \</div>
               <div className="text-emerald-400 mb-6">  -d '&#123;"query": "Software Engineer", "location": "Remote"&#125;'</div>
               
@@ -330,25 +330,25 @@ export default function JobScraperLanding() {
 
           <div className="w-full flex flex-col md:flex-row items-center justify-between gap-6 border-b border-neutral-800 pb-10 mb-10">
             <div className="flex gap-6">
-              <a href="mailto:your@email.com" className="text-neutral-400 hover:text-white transition-colors text-sm">Contact Email</a>
-              <a href="https://yourportfolio.com" target="_blank" rel="noreferrer" className="text-neutral-400 hover:text-white transition-colors text-sm">Portfolio</a>
+              <a href="mailto:hello@rudrakshh.live" className="text-neutral-400 hover:text-white transition-colors text-sm">Contact Email</a>
+              <a href="https://rudrakshdev.netlify.app" target="_blank" rel="noreferrer" className="text-neutral-400 hover:text-white transition-colors text-sm">Portfolio</a>
               <a href="https://github.com/rudrakshSoni-dev/job-scraper-engine" target="_blank" rel="noreferrer" className="text-neutral-400 hover:text-white transition-colors text-sm">Source Code</a>
             </div>
             
-            <a 
+            {/* <a 
               href="https://buymeacoffee.com/yourusername" 
               target="_blank" 
               rel="noreferrer"
               className="flex items-center gap-2 text-sm px-4 py-2 bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 rounded-full hover:bg-yellow-500/20 transition-colors"
             >
               <Coffee size={16} /> Buy me a coffee
-            </a>
+            </a> */}
           </div>
 
           <p className="text-neutral-500 text-sm flex items-center justify-center gap-1">
             Made with <span className="text-red-500">❤️</span> by{" "}
             <a 
-              href="https://github.com/yourusername" 
+              href="https://github.com/rudrakshSoni-dev" 
               target="_blank" 
               rel="noreferrer"
               className="text-white hover:text-emerald-400 transition-colors font-medium ml-1 underline decoration-neutral-700 underline-offset-4"
