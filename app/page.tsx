@@ -20,13 +20,24 @@ import {
   Briefcase
 } from "lucide-react";
 
+
 // Animation Variants
-const fadeInUp = {
+import type { Variants } from "framer-motion";
+
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut" as any
+    }
+  }
 };
 
-const staggerContainer = {
+
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
